@@ -1,38 +1,50 @@
-# GeeLark SDK for Node.js
+<div align="center">
 
-[![npm version](https://img.shields.io/npm/v/geelark-sdk.svg)](https://www.npmjs.com/package/geelark-sdk)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.6+-blue.svg)](https://www.typescriptlang.org/)
+<img src="./assets/logo.png" alt="GeeLark" width="380" />
 
-Official TypeScript/JavaScript SDK for the [GeeLark](https://www.geelark.com/) cloud phone platform API. Build, automate, and manage cloud phone profiles and browser environments with a fully typed, ergonomic developer experience.
+<br />
+<br />
 
----
+**Official TypeScript SDK for the [GeeLark](https://www.geelark.com/) Cloud Phone Platform**
 
-## Features
+[![npm version](https://img.shields.io/npm/v/geelark-sdk.svg?style=flat-square&color=2C8EF8)](https://www.npmjs.com/package/geelark-sdk)
+[![License: MIT](https://img.shields.io/badge/License-MIT-2C8EF8.svg?style=flat-square)](https://opensource.org/licenses/MIT)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.6+-2C8EF8.svg?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Node.js](https://img.shields.io/badge/Node.js-18.17+-2C8EF8.svg?style=flat-square&logo=node.js&logoColor=white)](https://nodejs.org/)
 
-- **28 API modules** covering every GeeLark endpoint
-- **145+ methods** for cloud phones, social platforms, browser automation, and more
-- **TypeScript-first** with complete type definitions for all requests and responses
-- **Dual-format distribution** -- works with both ESM (`import`) and CommonJS (`require`)
-- **Automatic request signing** -- SHA-256 signature generation handled transparently
-- **Built-in retry logic** with configurable retries and exponential back-off
-- **Lifecycle hooks** (`beforeRequest` / `afterResponse`) for logging, metrics, and middleware
-- **Debug mode** for development-time request/response logging
-- **Zero runtime dependencies** -- uses only the Node.js built-in `crypto` and `fetch`
-- **Tree-shakeable** -- import only the modules you need
-- **Node.js 18.17+** required (uses native `fetch`)
+Build, automate, and manage cloud phone profiles and browser environments with a fully typed, ergonomic developer experience.
+
+[Getting Started](#-getting-started) · [API Reference](#-module-reference) · [Examples](#-usage-examples) · [Configuration](#%EF%B8%8F-configuration)
+
+</div>
 
 ---
 
-## Installation
+## ✨ Features
+
+| | Feature | Details |
+|---|---|---|
+| 📦 | **28 API Modules** | Every GeeLark endpoint covered |
+| 🔧 | **145+ Methods** | Cloud phones, social platforms, browser automation, and more |
+| 🔷 | **TypeScript-First** | Complete type definitions for all requests and responses |
+| 📤 | **ESM + CJS** | Dual-format distribution — works with `import` and `require` |
+| 🔐 | **Auto Signing** | SHA-256 signature generation handled transparently |
+| 🔄 | **Retry Logic** | Configurable retries with exponential back-off |
+| 🪝 | **Lifecycle Hooks** | `beforeRequest` / `afterResponse` for logging & middleware |
+| 🐛 | **Debug Mode** | Request/response logging for development |
+| 🪶 | **Zero Dependencies** | Uses only Node.js built-in `crypto` and `fetch` |
+
+---
+
+## 🚀 Getting Started
+
+### Installation
 
 ```bash
 npm install geelark-sdk
 ```
 
----
-
-## Quick Start
+### Quick Start
 
 ```typescript
 import { createGeelarkClient } from "geelark-sdk";
@@ -57,58 +69,80 @@ console.log("Screenshot URL:", result.downloadLink);
 
 ---
 
-## Authentication
+## 🔐 Authentication
 
-GeeLark uses **HMAC-style request signing** based on SHA-256. Every API request includes the following headers:
+GeeLark uses **SHA-256 request signing**. The SDK handles this automatically — just provide your `appId` and `apiKey`.
 
-| Header    | Description                         |
-| --------- | ----------------------------------- |
-| `appId`   | Your application ID                 |
-| `traceId` | Unique request trace identifier     |
-| `ts`      | Unix timestamp in milliseconds      |
-| `nonce`   | Short random nonce                  |
-| `sign`    | `SHA256(appId + traceId + ts + nonce + apiKey).toUpperCase()` |
+Every request includes:
 
-**You do not need to compute signatures yourself.** The SDK handles signing automatically on every request. Simply provide your `appId` and `apiKey` when creating the client.
+| Field | Description |
+|:------|:------------|
+| `appId` | Your application ID |
+| `traceId` | Unique request trace identifier |
+| `ts` | Unix timestamp in milliseconds |
+| `nonce` | Short random nonce |
+| `sign` | `SHA256(appId + traceId + ts + nonce + apiKey).toUpperCase()` |
 
----
-
-## Module Reference
-
-| Module            | Description                                          |
-| ----------------- | ---------------------------------------------------- |
-| `phone`           | Cloud phone lifecycle -- list, create, start, stop, delete, GPS, screenshots, contacts |
-| `upload`          | Upload files to GeeLark cloud storage (OSS)          |
-| `task`            | Task management -- create, restart, cancel, query     |
-| `tiktok`          | TikTok automation -- publish videos/images, warmup, login, comments, DMs |
-| `instagram`       | Instagram automation -- login, publish reels/images, warmup, DMs |
-| `reddit`          | Reddit automation -- warmup, post videos/images      |
-| `youtube`         | YouTube automation -- publish Shorts/videos, maintenance |
-| `google`          | Google services -- login, app download, app browsing  |
-| `shein`           | SHEIN platform automation -- login                    |
-| `x`               | X (Twitter) automation -- publish content             |
-| `pinterest`       | Pinterest automation -- publish videos/images         |
-| `threads`         | Threads automation -- publish videos/images           |
-| `facebook`        | Facebook automation -- login, comments, publish, Reels, DMs |
-| `rpaUtils`        | RPA utilities -- multi-platform distribution, file upload, contacts, custom flows |
-| `adb`             | ADB access -- get connection data, enable/disable     |
-| `analytics`       | Account analytics -- list, add, query data            |
-| `app`             | Application management -- install, uninstall, upload, permissions |
-| `fileManagement`  | File operations -- upload results, keybox management  |
-| `library`         | Material library -- create/search/tag materials       |
-| `shell`           | Shell command execution on cloud phones               |
-| `webhook`         | Webhook configuration -- set/get callback URLs        |
-| `oem`             | OEM customization -- branding, toolbar settings       |
-| `billing`         | Billing -- balance inquiry, plan management           |
-| `group`           | Group management -- create, delete, modify, query     |
-| `proxyMgmt`       | Proxy management -- add, delete, list, update         |
-| `tag`             | Tag management -- create, delete, modify, query       |
-| `proxyDetection`  | Proxy detection -- check proxy connectivity           |
-| `browser`         | Browser API -- create, launch, close, tasks (local API) |
+> 💡 You never need to compute signatures yourself.
 
 ---
 
-## Usage Examples
+## 📚 Module Reference
+
+<table>
+<thead>
+<tr>
+<th align="left">Category</th>
+<th align="left">Module</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+
+<tr><td colspan="3"><strong>☁️ Cloud Phone</strong></td></tr>
+<tr><td></td><td><code>phone</code></td><td>Lifecycle — list, create, start, stop, delete, GPS, screenshots, contacts</td></tr>
+<tr><td></td><td><code>adb</code></td><td>ADB access — get connection data, enable/disable</td></tr>
+<tr><td></td><td><code>shell</code></td><td>Shell command execution on cloud phones</td></tr>
+
+<tr><td colspan="3"><strong>🤖 Social Media RPA</strong></td></tr>
+<tr><td></td><td><code>tiktok</code></td><td>Video/image publishing, warmup, login, comments, DMs</td></tr>
+<tr><td></td><td><code>instagram</code></td><td>Login, publish Reels (video/image), warmup, DMs</td></tr>
+<tr><td></td><td><code>facebook</code></td><td>Login, comments, publish, Reels, DMs</td></tr>
+<tr><td></td><td><code>youtube</code></td><td>Publish Shorts/videos, channel maintenance</td></tr>
+<tr><td></td><td><code>x</code></td><td>Publish content to X (Twitter)</td></tr>
+<tr><td></td><td><code>reddit</code></td><td>Warmup, post videos/images</td></tr>
+<tr><td></td><td><code>pinterest</code></td><td>Publish videos and images</td></tr>
+<tr><td></td><td><code>threads</code></td><td>Publish videos and images</td></tr>
+<tr><td></td><td><code>google</code></td><td>Login, app download, app browsing</td></tr>
+<tr><td></td><td><code>shein</code></td><td>Auto-login</td></tr>
+
+<tr><td colspan="3"><strong>🌐 Browser</strong></td></tr>
+<tr><td></td><td><code>browser</code></td><td>Antidetect browser — create, launch, close, tasks (local API)</td></tr>
+
+<tr><td colspan="3"><strong>⚙️ Automation & Tasks</strong></td></tr>
+<tr><td></td><td><code>task</code></td><td>Task management — create, restart, cancel, query</td></tr>
+<tr><td></td><td><code>rpaUtils</code></td><td>Multi-platform distribution, file upload, contacts, custom flows</td></tr>
+
+<tr><td colspan="3"><strong>🗂️ Management</strong></td></tr>
+<tr><td></td><td><code>upload</code></td><td>Upload files to GeeLark cloud storage (OSS)</td></tr>
+<tr><td></td><td><code>analytics</code></td><td>Account analytics — list, add, query data</td></tr>
+<tr><td></td><td><code>app</code></td><td>Application management — install, uninstall, upload, permissions</td></tr>
+<tr><td></td><td><code>fileManagement</code></td><td>File operations — upload results, keybox management</td></tr>
+<tr><td></td><td><code>library</code></td><td>Material library — create/search/tag materials</td></tr>
+<tr><td></td><td><code>webhook</code></td><td>Webhook configuration — set/get callback URLs</td></tr>
+<tr><td></td><td><code>oem</code></td><td>OEM customization — branding, toolbar settings</td></tr>
+<tr><td></td><td><code>billing</code></td><td>Balance inquiry, plan management</td></tr>
+<tr><td></td><td><code>group</code></td><td>Group management — create, delete, modify, query</td></tr>
+<tr><td></td><td><code>proxyMgmt</code></td><td>Proxy management — add, delete, list, update</td></tr>
+<tr><td></td><td><code>tag</code></td><td>Tag management — create, delete, modify, query</td></tr>
+<tr><td></td><td><code>proxyDetection</code></td><td>Proxy detection — check connectivity</td></tr>
+
+</tbody>
+</table>
+
+---
+
+## 💻 Usage Examples
 
 ### Cloud Phone Management
 
@@ -194,7 +228,7 @@ await client.instagram.message({
 const client = createGeelarkClient({
   appId: "YOUR_APP_ID",
   apiKey: "YOUR_API_KEY",
-  browserBaseUrl: "http://localhost:40185/api/v1", // default
+  browserBaseUrl: "http://localhost:40185/api/v1",
 });
 
 // Create a browser profile
@@ -213,17 +247,12 @@ await client.browser.close(id);
 
 ---
 
-## Error Handling
+## ❌ Error Handling
 
 All API errors are thrown as `GeelarkError` instances:
 
 ```typescript
 import { createGeelarkClient, GeelarkError } from "geelark-sdk";
-
-const client = createGeelarkClient({
-  appId: "YOUR_APP_ID",
-  apiKey: "YOUR_API_KEY",
-});
 
 try {
   await client.phone.start("invalid-id");
@@ -238,19 +267,17 @@ try {
 }
 ```
 
-The `GeelarkError` class exposes the following properties:
-
-| Property     | Type                | Description                          |
-| ------------ | ------------------- | ------------------------------------ |
-| `message`    | `string`            | Human-readable error message         |
-| `code`       | `string \| number`  | GeeLark API error code               |
-| `endpoint`   | `string`            | API endpoint that failed             |
-| `httpStatus` | `number`            | HTTP status code                     |
-| `details`    | `any`               | Full response body from the API      |
+| Property | Type | Description |
+|:---------|:-----|:------------|
+| `message` | `string` | Human-readable error message |
+| `code` | `string \| number` | GeeLark API error code |
+| `endpoint` | `string` | API endpoint that failed |
+| `httpStatus` | `number` | HTTP status code |
+| `details` | `any` | Full response body from the API |
 
 ---
 
-## Configuration Options
+## ⚙️ Configuration
 
 ```typescript
 const client = createGeelarkClient({
@@ -258,21 +285,21 @@ const client = createGeelarkClient({
   appId: "YOUR_APP_ID",
   apiKey: "YOUR_API_KEY",
 
-  // Optional -- API base URL (default: https://openapi.geelark.com/open/v1)
+  // Optional — API base URL (default: https://openapi.geelark.com/open/v1)
   baseUrl: "https://openapi.geelark.com/open/v1",
 
-  // Optional -- Browser API base URL (default: http://localhost:40185/api/v1)
+  // Optional — Browser API base URL (default: http://localhost:40185/api/v1)
   browserBaseUrl: "http://localhost:40185/api/v1",
 
-  // Optional -- Enable request/response logging to console
+  // Optional — Enable request/response logging
   debug: false,
 
-  // Optional -- Default values merged into task/tiktok module calls
+  // Optional — Default values merged into task/tiktok module calls
   defaults: {
     planName: "my-default-plan",
   },
 
-  // Optional -- Lifecycle hooks
+  // Optional — Lifecycle hooks
   hooks: {
     beforeRequest: async ({ url, headers, body, pathname }) => {
       console.log(`[REQ] ${pathname}`);
@@ -303,6 +330,10 @@ const data = await client.request("/some/new/endpoint", { key: "value" });
 
 ---
 
-## License
+<div align="center">
 
-[MIT](./LICENSE)
+**[GeeLark Website](https://www.geelark.com/)** · **[API Documentation](https://docs.geelark.com/)** · **[Report an Issue](https://github.com/UrielAbel/geelark-sdk-nodejs/issues)**
+
+<sub>MIT License — © 2024-2025 GeeLark SDK Contributors</sub>
+
+</div>
