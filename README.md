@@ -5,7 +5,7 @@
 <br />
 <br />
 
-**Official TypeScript SDK for the [GeeLark](https://www.geelark.com/) Cloud Phone Platform**
+**TypeScript SDK for the [GeeLark](https://www.geelark.com/) Cloud Phone Platform**
 
 [![npm version](https://img.shields.io/npm/v/geelark-sdk.svg?style=flat-square&color=2C8EF8)](https://www.npmjs.com/package/geelark-sdk)
 [![License: MIT](https://img.shields.io/badge/License-MIT-2C8EF8.svg?style=flat-square)](https://opensource.org/licenses/MIT)
@@ -332,7 +332,7 @@ const data = await client.request("/some/new/endpoint", { key: "value" });
 
 <div align="center">
 
-**[GeeLark Website](https://www.geelark.com/)** · **[API Documentation](https://docs.geelark.com/)** · **[Report an Issue](https://github.com/UrielAbel/geelark-sdk-nodejs/issues)**
+**[GeeLark Website](https://www.geelark.com/)** · **[API Documentation](https://open.geelark.com/api)** · **[Report an Issue](https://github.com/UrielAbel/geelark-sdk-nodejs/issues)**
 
 <sub>MIT License — © 2024-2025 GeeLark SDK Contributors</sub>
 
